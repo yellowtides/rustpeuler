@@ -2,6 +2,12 @@ extern crate plist;
 
 use std::env;
 
+macro_rules! outp_skele {
+    ($arg:expr) => {
+        println!("what you're looking for is {}", $arg);
+    };
+}
+
 fn main() {
     
     if env::args().count() != 2 {
@@ -13,8 +19,8 @@ fn main() {
     let argn: i32 = arg.parse().ok().unwrap_or(1);
 
     match argn {
-        1 => println!("what you're looking for is {}", plist::s0001::solve()),
-        2 => println!("what you're looking for is {}", plist::s0002::solve()),
+        1 => outp_skele!(plist::s0001::solve()),
+        2 => outp_skele!(plist::s0002::solve()),
         e @ _ => println!("uh oh, you might want a time machine for problem #{}", e),
     }
 }
