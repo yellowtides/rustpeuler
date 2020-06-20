@@ -8,6 +8,6 @@ edition = "2018"
 
 [lib]
 name = "plist"
-path = "src/lib.rs"
+path = "src/sol/lib.rs"
 
 [dependencies]
