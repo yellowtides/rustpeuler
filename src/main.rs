@@ -1,4 +1,4 @@
-extern crate plist;
+use plist;
 
 use std::env;
 
@@ -38,6 +38,9 @@ fn main() {
     match arg {
         1 => fetch_pres!(s0001),
         2 => fetch_pres!(s0002),
+        3 => fetch_pres!(s0003),
+        4 => fetch_pres!(s0004),
+        5 => fetch_pres!(s0005),
         e @ _ => println!("uh oh, you might want a time machine for problem #{}", e),
     }
 }
