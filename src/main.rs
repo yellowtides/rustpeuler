@@ -2,25 +2,42 @@ extern crate plist;
 
 use std::env;
 
-macro_rules! outp_skele {
-    ($arg:expr) => {
-        println!("what you're looking for is {}", $arg);
+// macro rules <=> pretty code
+
+macro_rules! fetch_pres {
+    ($arg:ident) => {
+        println!("what you're looking for is {}", plist::$arg::solve());
     };
 }
 
 fn main() {
-    
-    if env::args().count() != 2 {
-        println!("you forgot the magic number my dude");
+   
+    // fetch + sanitise argument(s)
+
+    let args: Vec<String> = env::args().collect();
+
+    if args.len() < 2 {
+        println!("you forgot the magic number!1!!");
         return;
     }
 
-    let arg = env::args().nth(1).unwrap();
-    let argn: i32 = arg.parse().ok().unwrap_or(1);
+    if args.len() > 2 {
+        println!("your number of arguments is very impressive, you must be very proud");
+        return;
+    }
+    // check for sole argument
 
-    match argn {
-        1 => outp_skele!(plist::s0001::solve()),
-        2 => outp_skele!(plist::s0002::solve()),
+    let arg = match args[1].parse::<u16>() {
+        Ok(n)  => n, 
+        // unwraps the given Result
+        Err(_) => panic!("that's illegal you can't do that (only unsigned integers allowed!)")
+    };
+    // sanitise given argument
+
+    // match argument
+    match arg {
+        1 => fetch_pres!(s0001),
+        2 => fetch_pres!(s0002),
         e @ _ => println!("uh oh, you might want a time machine for problem #{}", e),
     }
 }
