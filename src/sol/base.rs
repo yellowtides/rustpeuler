@@ -24,3 +24,19 @@ pub fn compute_sieve(n: usize) -> Vec<u64> {
 
     ans
 }
+
+// logarithmic exponentiation
+pub fn log_pow(base: u64, exp: u64) -> u64 {
+
+    if exp == 0 {
+        return 1;
+    }
+
+    match exp % 2 {
+        0 => { 
+            let geom_half = log_pow(base, exp/2);
+            geom_half * geom_half
+        },
+        _ => base * log_pow(base, exp-1)
+    }
+}

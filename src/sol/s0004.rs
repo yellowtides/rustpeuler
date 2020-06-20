@@ -1,16 +1,13 @@
 // p4 sol https://projecteuler.net/problem=4
 
-use crate::base;
-
-fn valid(input: u64) -> bool {
+fn is_valid(input: u64) -> bool {
     input > 99 && input < 1000
 }
 
 fn find_pal() -> u64 {
     // number clearly lies in 100001..997799 (~900 numbers to check)
     
-    // to check for a viable product, greedily split the prime factors into two products
-    // and check if they're consisting of 3 digits
+    // to check for a viable product, naively iterate over 3 digit numbers and divide
     
     for tr in (100..998).rev() {
 
@@ -25,47 +22,29 @@ fn find_pal() -> u64 {
         } 
         // construct possible palindrome
         
-        let mut split_left: u64 = 1;
-        let mut split_right: u64 = 1;
-        // the two halves (greedily constructed prime factor products)
-        
-        let perma_iter = curr_iter;
-        // the candidate palindrome
 
-        let root: u64 = 1 + (curr_iter as f64).sqrt() as u64;
-        // sqrt(tr)
-
-        for i in 2..root {
-
-            if curr_iter == 1 {
-                break;
+        for i in 100..1000 {
+            
+            let split_left = i;
+            let split_right = curr_iter/i;
+            if !is_valid(split_right) {
+                // make sure it has 3 digits
+                continue;
             }
 
-            while curr_iter % i == 0 {
-                // factor found!
-                
-                curr_iter /= i;
-                if split_left < split_right {
-                    split_left *= i;
-                }
-                else {
-                    split_right *= i;
-                }
+            if split_left * split_right == curr_iter {
+                return curr_iter;
             }
-            // construct the two halves
-        }
-
-        if valid(split_left) && valid(split_right) {
-            return perma_iter;
+            // check if the product matches the palindrome and return if it does
         }
     }
 
    0 
+   // if all fails, output 0
 }
 
 pub fn solve() -> u64 {
     
-    println!("{:?}", base::compute_sieve(1000000));
     find_pal()
 
 }
