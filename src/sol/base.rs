@@ -2,10 +2,10 @@
 pub fn compute_sieve(n: usize) -> Vec<u64> {
     // n <= 1 mil
 
-    const MAX_ALLOWED: usize = 1e6 as usize;
+    const MAX_ALLOWED: usize = 2e6 as usize;
 
     if n > MAX_ALLOWED {
-        panic!("sieve input exceeds 1 million, which cannot be allowed");
+        panic!("sieve input exceeds 10 million, which cannot be allowed");
     }
 
     let mut table: [bool; MAX_ALLOWED] = [true; MAX_ALLOWED];
@@ -39,4 +39,30 @@ pub fn log_pow(base: u64, exp: u64) -> u64 {
         },
         _ => base * log_pow(base, exp-1)
     }
+}
+
+// counts the number of divisors using a prime sieve and repeated division
+pub fn count_div(n: u64, sieve: &Vec<u64>) -> u64 {
+
+    let mut factor_this = n;
+    let mut curr_prime = 0;
+    let mut ans = 1;
+
+    loop {
+
+        if factor_this == 1 || factor_this < sieve[curr_prime] {
+            break;
+        }
+    
+        let mut no_div_curr = 0;
+        while factor_this % sieve[curr_prime] == 0 {
+            no_div_curr += 1; 
+            factor_this /= sieve[curr_prime];
+        }
+
+        ans *= no_div_curr + 1;
+        curr_prime += 1;
+    }
+
+    ans
 }
