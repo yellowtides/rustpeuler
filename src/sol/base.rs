@@ -1,3 +1,5 @@
+use num_bigint::{BigInt, ToBigInt};
+
 // a prime generator for Erasthotene's sieve
 pub fn compute_sieve(n: usize) -> Vec<u64> {
     // n <= 1 mil
@@ -38,6 +40,22 @@ pub fn log_pow(base: u64, exp: u64) -> u64 {
             geom_half * geom_half
         },
         _ => base * log_pow(base, exp-1)
+    }
+}
+
+// logarithmic exponentiation for big numbers
+pub fn log_pow_big(base: u64, exp: u64) -> BigInt {
+
+    if exp == 0 {
+        return 1.to_bigint().unwrap();
+    }
+
+    match exp % 2 {
+        0 => { 
+            let geom_half: BigInt = log_pow_big(base, exp/2);
+            &geom_half * &geom_half
+        },
+        _ => base.to_bigint().unwrap() * log_pow_big(base, exp-1)
     }
 }
 
