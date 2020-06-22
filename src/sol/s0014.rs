@@ -2,26 +2,22 @@
 
 use std::collections::HashMap;
 
-fn count_collatz_steps(n: u64, mut mem: &mut HashMap<&u64, u64>) -> u64 {
-    
-    // if mem.contains_key(&n) {
-    //     return *mem.get(&n).unwrap();
-    // }
-
-    let ans;
+fn count_collatz_steps(n: u64, mem: &mut HashMap<u64, u64>) -> u64 {
     
     if n == 1 {
-        ans = 1;
+        return 1;
     } 
-    else if n % 2 == 0 {
-        ans = 1 + count_collatz_steps((&n)/2, &mut mem);
-    }
-    else {
-        ans = 1 + count_collatz_steps(3*(&n)+1, &mut mem);
-    }
 
-    // mem.insert(&n, ans);
-
+    if let Some(x) = mem.get(&n) {
+        return *x;
+    }
+    
+    let ans = 1 + match n % 2 {
+        1 => count_collatz_steps(n*3+1, mem),
+        _ => count_collatz_steps(n/2, mem)
+    };
+    mem.insert(n, ans);
+    
     ans
 }
 
@@ -30,7 +26,7 @@ fn find_longest_collatzchain(input: u64) -> u64 {
     let mut ans = 0;
     let mut max_chain_len = 0;
 
-    let mut chain_len_all: HashMap<&u64, u64> = HashMap::new();
+    let mut chain_len_all: HashMap<u64, u64> = HashMap::new();
 
     for i in 1..input {
 
