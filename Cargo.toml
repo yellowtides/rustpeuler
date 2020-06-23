@@ -11,3 +11,4 @@ name = "plist"
 path = "src/sol/lib.rs"
 
 [dependencies]
+num-bigint = "0.3"
