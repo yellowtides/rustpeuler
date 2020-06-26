@@ -30,7 +30,7 @@ pub fn solve() -> u64 {
             continue;
         }
 
-        let mut div_sum: u64 = fetch_d(i);
+        let div_sum: u64 = fetch_d(i);
         if fetch_d(div_sum) == i && i != div_sum {
             ans += i;
             if div_sum < 10000 {
