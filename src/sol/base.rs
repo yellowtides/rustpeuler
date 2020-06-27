@@ -1,7 +1,7 @@
 use num_bigint::{BigInt, ToBigInt};
+use std::collections::HashSet;
 
-// a prime generator for Erasthotene's sieve
-pub fn compute_sieve(n: usize) -> Vec<u64> {
+fn sieve_primetable(n: usize) -> [bool; 2e6 as usize] {
     // n <= 1 mil
 
     const MAX_ALLOWED: usize = 2e6 as usize;
@@ -17,7 +17,18 @@ pub fn compute_sieve(n: usize) -> Vec<u64> {
         }
     }
 
+    table
+}
+
+// a prime generator for Erasthotene's sieve
+pub fn compute_sieve(n: usize) -> Vec<u64> {
+    // n <= 1 mil
+
+    const MAX_ALLOWED: usize = 2e6 as usize;    
+    
+    let table: [bool; MAX_ALLOWED] = sieve_primetable(n);
     let mut ans = Vec::new();
+
     for i in 2..n {
         if table[i] == true {
             ans.push(i as u64);
@@ -26,6 +37,25 @@ pub fn compute_sieve(n: usize) -> Vec<u64> {
 
     ans
 }
+
+// a prime hashset using Erasthotene's sieve
+
+pub fn compute_primeset(n: usize) -> HashSet<u64> {
+    // n <= 1 mil
+
+    const MAX_ALLOWED: usize = 2e6 as usize;    
+    
+    let table: [bool; MAX_ALLOWED] = sieve_primetable(n);
+    let mut primeset = HashSet::<u64>::new();
+
+    for i in 2..n {
+        if table[i] == true {
+            primeset.insert(i as u64);         
+        }
+    }
+
+    primeset
+} 
 
 // logarithmic exponentiation
 pub fn log_pow(base: u64, exp: u64) -> u64 {

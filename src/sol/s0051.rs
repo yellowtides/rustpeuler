@@ -41,6 +41,20 @@ fn fetch_words() -> Vec<String> {
     ans
 }
 
+// fn check_family(num: String) -> bool {
+    
+//     let st: usize = 0;
+
+//     if num[0] == '*' {
+//         st = 1;
+//     }
+//     // edge case: *53 with * = 0 is not a prime, it is an invalid number
+
+//     for wildcard in st..10 {
+//         if replace_p
+//     }
+// }
+
 pub fn solve() -> u64 {
     
     println!("{:?}", fetch_words());
