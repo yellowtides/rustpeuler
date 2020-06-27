@@ -55,6 +55,7 @@ fn main() {
         21 => fetch_pres!(s0021),
         25 => fetch_pres!(s0025),
         30 => fetch_pres!(s0030),
+        51 => fetch_pres!(s0051),
         69 => fetch_pres!(s0069),
         e @ _ => println!("uh oh, you might want a time machine for problem #{}", e),
     }
