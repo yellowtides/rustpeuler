@@ -18,6 +18,7 @@ pub mod s0021;
 pub mod s0025;
 pub mod s0030;
 pub mod s0051;
+pub mod s0062;
 pub mod s0069;
 
 pub mod base;
