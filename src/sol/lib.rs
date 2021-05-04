@@ -5,6 +5,7 @@ pub mod s0004;
 pub mod s0005;
 pub mod s0006;
 pub mod s0007;
+pub mod s0008;
 pub mod s0009;
 pub mod s0010;
 pub mod s0012;
